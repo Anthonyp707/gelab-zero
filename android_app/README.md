@@ -42,3 +42,5 @@ adb install -r app-release.apk
 ```
 
 The app is signed by the debug key in CI, which is OK for testing but not for production distribution.
+
+# Triggered at 2025-12-02T06:00:04+00:00 by CI
