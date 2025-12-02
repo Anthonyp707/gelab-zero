@@ -1,0 +1,54 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android' version '1.9.0' apply false
+}
+
+android {
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "ai.stepfun.gelabzero"
+        minSdk 21
+        targetSdk 33
+        versionCode 1
+        versionName "0.1"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        debug {
+            // Use CI runner's default debug keystore so release APK is installable on devices.
+            def home = System.getProperty('user.home')
+            def debugKeystore = file(home + '/.android/debug.keystore')
+            if (debugKeystore.exists()) {
+                storeFile debugKeystore
+                storePassword 'android'
+                keyAlias 'androiddebugkey'
+                keyPassword 'android'
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            // Sign release with the runner's debug keystore when available so APK can be installed.
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    namespace 'ai.stepfun.gelabzero'
+}
+
+repositories {
+    google()
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'androidx.core:core-ktx:1.10.1'
+    implementation 'androidx.appcompat:appcompat:1.8.0'
+    implementation 'com.google.android.material:material:1.9.0'
+}
